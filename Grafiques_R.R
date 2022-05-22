@@ -39,8 +39,8 @@ ggplot(data=emm_gen_gr, aes(x=factor(Any), y=Emmigrants, fill=Sexe))+
   ####Gràfiques ocupació mitjana i preu del lloguers:####
 
 
-df_preus = read.csv('C:/Users/jsole/OneDrive/Escritorio/Visualització/Nueva carpeta/Mitjana_LLoguer_2015-2020.csv')
-df_ocupacio = read.csv('C:/Users/jsole/OneDrive/Escritorio/Visualització/Nueva carpeta/Ocupacio_Mitjana_2015-2020.csv')
+df_preus = read.csv('Mitjana_LLoguer_2015-2020.csv')
+df_ocupacio = read.csv('Ocupacio_Mitjana_2015-2020.csv')
 
 df_ocupacio = df_ocupacio[,c(1,2,3,6)]
 names(df_ocupacio)[names(df_ocupacio) == 'Ocupacio_mitjana_.persones_.per_domicili.'] = 'Ocupacio'
