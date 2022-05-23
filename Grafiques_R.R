@@ -144,3 +144,27 @@ ggplot(group_countries1, aes(Total, fct_reorder(Nacionalitat, Total, .desc = FAL
   xlab("Nacionalitat") + ylab("Nova immigració a Barcelona als últims 5 anys") +
   geom_text(aes(label = Total), hjust = 0.001) +
   ggtitle("Països estrangers dels quals hi procedeixen més immigrants")
+
+
+####Gràfica Total Immigrants/Emmigrants durant 6 anys (2015-2021) per franja d'Edat:####
+
+setwd("C:/Users/didac/Desktop/")
+imm_dataset <- read.csv('./Immigracio_Emmigracio_Edat_2015-2020.csv', header = TRUE, fill=TRUE, encoding="UTF-8")
+imm_dataset = imm_dataset[imm_dataset$Edat != "100  i més",]
+imm_dataset = imm_dataset[imm_dataset$Edat != "95-99 ",]
+imm_dataset = imm_dataset[imm_dataset$Edat != "90-94 ",]
+imm_dataset = imm_dataset[imm_dataset$Edat != "85-89 ",]
+imm_dataset = imm_dataset[imm_dataset$Edat != "80-84 ",]
+imm_dataset = imm_dataset[imm_dataset$Edat != "",]
+imm_dataset
+new1 <- imm_dataset %>% group_by(Edat=factor(Edat_quinquennal,levels=unique(Edat_quinquennal))) %>% summarise(Immigrants = sum(Immigrants),Emmigrants = sum(Emmigrants))
+print(new1,n=25)
+
+ggplot(new1, aes(Edat,group=1),fig(4,4)) + 
+  geom_line(aes(y = Immigrants, colour = "Immigrants")) + geom_point(aes(y=Immigrants)) +
+  geom_line(aes(y = Emmigrants, colour = "Emigrants")) + geom_point(aes(y=Emmigrants)) + 
+  ggtitle("Total Immigrants/Emigrants durant 6 anys (2015-2021) per franja d’edat") +
+  ylab("Nº Persones") + xlab("Franja d'Edat") +labs(colour="Tipus") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_manual(values=c('Orange','Blue')) +
+  ggsave(file="1.jpg", width=8, height=4, dpi=300)
